@@ -1,0 +1,33 @@
+import React from 'react';
+import axios from 'axios';
+class App extends React.Component{
+	
+	constructor(props){
+		super(props);
+		this.state={higfrequncyList :['can','at','the','what','sdsd','fdfsdfds'], index:0      }
+		
+	}
+	
+	displayNextword = ()=>{
+		if(this.state.index<this.state.higfrequncyList.length-1){
+			this.setState(      {index:    this.state.index + 1}    );
+		}else{
+			this.setState(      {index:0}    );	
+		}
+	}
+	
+	
+	render(){
+		return(
+		  <div  style={{'text-align':'center','margin-top':'150px','font-size':'100px','color':'cyan'}}>
+			<div>   
+				{this.state.higfrequncyList[this.state.index]}  
+			</div>
+			<button onClick={this.displayNextword}>	NEXT</button>		   
+		  </div>
+	  );
+	}
+}
+
+export default App;
+

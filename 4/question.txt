@@ -1,0 +1,4 @@
+1) in react project , inside state create list of json onjects
+2) each json object is employee object with name,age and gender. 
+3)creae some 5 employees
+4)display all employees in html page using react

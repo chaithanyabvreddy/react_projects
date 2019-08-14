@@ -1,0 +1,40 @@
+import React from 'react';
+import axios from 'axios';
+class App extends React.Component{
+	
+	constructor(props){
+		super(props);
+		this.state={employees:[{name:'anand',age:34,gender:'M'},{name:'ruthvi',age:5,gender:'M'},{name:'chaithu',age:29,gender:'f'}]}
+	}
+	
+	render(){
+		return(
+		<div>		
+		
+		
+		<table border="1">
+		<tr>
+			<th>name</th>
+			<th>age</th>
+			<th>gender</th>
+		</tr>
+		
+      {this.state.employees.map(function(employee){
+		return(
+		<tr>
+			<td>{employee.name}</td>
+			<td>{employee.age}</td>
+			<td>{employee.gender}</td>
+		</tr>
+		)
+       })}
+	   </table>
+      </div>
+
+		 
+	  );
+	}
+}
+
+export default App;
+

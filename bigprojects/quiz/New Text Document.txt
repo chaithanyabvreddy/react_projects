@@ -1,0 +1,77 @@
+import React from 'react';
+import axios from 'axios';
+class App extends React.Component{
+	constructor(props){
+	  super(props);
+	  this.state={ questionAnswerList:[{questionId:0,questionName:'who is ruthvik father',answers:{a:'anand',b:'sky',c:'moon',d:'donkey'},correctanser:'a',								 selectedAnswer:'',correctAnswer:'anand',result:''},
+													  {questionId:1,questionName:'who is gagan father',answers:{a:'sky',b:'madan',c:'moon',d:'peter'},
+													  selectedAnswer:''	,correctAnswer:'madan' ,result:''}
+									 ]
+				 }
+	}
+
+	
+	updateAnswer = (evt) =>{
+		var questionAnswerListCopy = this.state.questionAnswerList;
+		questionAnswerListCopy[evt.target.name].selectedAnswer = evt.target.value;
+		this.setState({questionAnswerList:questionAnswerListCopy});
+	}
+	
+	evaluateAnswers = () =>{
+		var questionAnswerListCopy = this.state.questionAnswerList;
+		for(var i=0;i<questionAnswerListCopy.length;i=i+1){
+			if (questionAnswerListCopy[i].selectedAnswer  == questionAnswerListCopy[i].correctAnswer){
+				var questionAnswerListCopy = this.state.questionAnswerList;
+				questionAnswerListCopy[i].result = 'correct';
+				this.setState({questionAnswerList:questionAnswerListCopy});
+			}else{
+				var questionAnswerListCopy = this.state.questionAnswerList;
+				questionAnswerListCopy[i].result = 'wrong';
+				this.setState({questionAnswerList:questionAnswerListCopy});
+			}
+			
+		}
+		
+		console.log(this.state)
+		
+	}
+	
+	render(){
+		  return (
+		  <div>
+			  {
+				  this.state.questionAnswerList.map(function(temp){
+					return(
+					<div>
+						{temp.questionId+1}){temp.questionName}<br></br>
+						a) <input type="radio" name={temp.questionId} value={temp.answers.a} onChange={this.updateAnswer}/>{temp.answers.a} <br></br>
+						b)  <input type="radio" name={temp.questionId} value={temp.answers.b} onChange={this.updateAnswer}/>{temp.answers.b} <br></br>
+						c)  <input type="radio" name={temp.questionId} value={temp.answers.c} onChange={this.updateAnswer}/>{temp.answers.c} <br></br>
+						d) <input type="radio" name={temp.questionId} value={temp.answers.d} onChange={this.updateAnswer}/>{temp.answers.d} <br></br>
+					</div>
+					)
+				  },this)
+			  }
+			  
+			   <br></br>
+			  Results:
+			   {
+				  this.state.questionAnswerList.map(function(temp){
+					return(
+					<div>
+						{temp.questionId+1}){temp.result}<br></br>
+					
+					</div>
+					)
+				  },this)
+			  }
+			 
+			  
+			  <button onClick={this.evaluateAnswers} >Evaluate</button>
+		  </div>
+		  );
+	}
+   
+} 
+export default App;
+

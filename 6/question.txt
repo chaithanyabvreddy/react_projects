@@ -1,0 +1,5 @@
+1) create a brand new  reactjs project
+2) add 7 text feilds for employee in form tag
+3) create a button 
+4) onclick of button call a savetoDB() method which will make axios post call to server. just check in logs if the value you typing in textbox can be see in developer toold
+no need of backend.

@@ -1,0 +1,1 @@
+1)display images in react js one by one on click of next button

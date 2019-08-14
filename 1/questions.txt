@@ -1,0 +1,1 @@
+1) display high freq words one by one wen u click on next button in react.

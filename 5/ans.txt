@@ -1,0 +1,46 @@
+import React from 'react';
+import axios from 'axios';
+class App extends React.Component{
+	constructor(props){
+		super(props);
+		this.state={todoList:[]}
+		this.getTodoItem();
+	}
+	
+	getTodoItem =  async ()  =>{
+		var response = await axios.get('https://jsonplaceholder.typicode.com/todos/');
+		this.setState({todoList:response.data});
+	}
+	
+	render(){
+		return(
+		<div>
+		<table border="1">
+			<tr>
+			<td>id</td>
+			<td>userid</td>
+			<td>title</td>
+			<td>completed</td>
+			
+			</tr>
+		{this.state.todoList.map(function(todoItem){
+			return(
+			<tr>
+			<td>{todoItem.id}</td>
+			<td>{todoItem.userId}</td>
+			<td>{todoItem.title}</td>
+			<td>{todoItem.completed}</td>
+			</tr>
+			
+			
+			);
+		})}
+		</table>
+		</div>
+
+		 
+	  );
+	}
+}
+
+export default App;

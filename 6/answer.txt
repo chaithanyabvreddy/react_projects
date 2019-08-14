@@ -1,0 +1,31 @@
+import React from 'react';
+import axios from 'axios';
+class App extends React.Component{
+	constructor(props){
+		super(props);
+		this.state={firstname:'',lastname:'',username:'',age:''}
+		
+	}
+	
+	saveToDb= async()=>{
+		console.log(this.state)
+		var response= await	axios.post('http://localhost:8080/dummy',{firstName:this.state.firstname,lastName:this.state.lastname,userName:this.state.username,age:this.state.age});
+	}
+	
+	
+	render(){
+		return(
+		<div>
+	firstname:<input type="text"  value={this.state.firstname}  onChange={event=>this.setState({firstname:event.target.value})}/>
+	lastname:<input type="text"  value={this.state.lastname}  onChange={event=>this.setState({lastname:event.target.value})}/>
+	username:<input type="text"  value={this.state.username}  onChange={event=>this.setState({username:event.target.value})}/>
+	age:<input type="text"  value={this.state.age}  onChange={event=>this.setState({age:event.target.value})}/>
+		<button onClick={this.saveToDb}> save to DB</button>
+			</div>
+
+		 
+	  );
+	}
+}
+
+export default App;

@@ -1,0 +1,31 @@
+import React from 'react';
+import axios from 'axios';
+class App extends React.Component{
+	
+	constructor(props){
+		super(props);
+		this.state={images:['IMG-20190405-WA0006.jpg','IMG-20190408-WA0005.jpg','IMG-20190428-WA0018.jpg','IMG-20190531-WA0033.jpg','IMG-20190602-WA0046.jpg'], index:0  }
+		
+	}
+
+	displayNextImage = ()=>{
+		if(this.state.index<this.state.images.length-1){
+			this.setState(      {index:    this.state.index + 1}    );
+		}else{
+			this.setState(      {index:0}    );	
+		}
+	}
+	
+	
+	render(){
+		return(
+		  <div  style={{'text-align':'center','margin-top':'150px','font-size':'100px','color':'cyan'}}>
+			<img width="500" height="500" src={ require('./images/'+ this.state.images[this.state.index]) } /> <br></br>
+			<button onClick={this.displayNextImage}>	NEXT</button>		   
+		  </div>
+	  );
+	}
+}
+
+export default App;
+
