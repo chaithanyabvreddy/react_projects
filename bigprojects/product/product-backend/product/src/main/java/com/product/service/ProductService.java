@@ -27,7 +27,7 @@ public class ProductService {
 	
 	public boolean delete(Long id) {
 		try {
-			productRepository.deleteById(id);
+			productRepository.delete(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
