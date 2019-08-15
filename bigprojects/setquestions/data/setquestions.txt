@@ -1,0 +1,188 @@
+class Test { 
+    protected int x, y; 
+} 
+  
+class Main { 
+    public static void main(String args[]) { 
+        Test t = new Test(); 
+        System.out.println(t.x + " " + t.y); 
+    } 
+} 
+
+ans)
+00
+
+correct answer explanation)
+In Java, a protected member is accessible in all classes of same package and in inherited classes of other packages.
+ Since Test and Main are in same package, no access related problem in the above program.
+Also, the default constructors initialize integral variables as 0 in Java (See this GFact for more details). That is why we get output as 0 0.
+-------------------------------------------------------
+class Main { 
+    public static void main(String args[]) {    
+        System.out.println(fun()); 
+    }  
+    int fun() { 
+        return 20; 
+    }  
+} 
+
+ans)
+Compiler Error
+explantion)
+Like C++, in Java, non-static methods cannot be called in a static method. If we make fun() static, then the program compiles fine without any compiler error.
+Following is the corrected program.
+-------------------------------------------------------
+ filename Main.java 
+class Main { 
+    public static void main(String args[]) { 
+        System.out.println(fun()); 
+    }  
+    static int fun() { 
+        return 20; 
+    } 
+} 
+
+ans)
+20
+-------------------------------------------------------
+class Test { 
+   public static void main(String args[]) { 
+       System.out.println(fun()); 
+   } 
+   static int fun() { 
+       static int x= 0; 
+       return ++x; 
+   } 
+} 
+
+ans)
+Compiler Error
+explanation) Unlike C++, static local variables are not allowed in Java. See this GFact for details.
+ We can have class static members to count number of function calls and other purposes that C++ local static variables serve.
+ Following is the corrected program.
+ -------------------------------------------------------
+class Test { 
+   private static int x; 
+   public static void main(String args[]) { 
+       System.out.println(fun()); 
+   } 
+   static int fun() { 
+       return ++x; 
+   } 
+} 
+ans) 
+Output:1
+explanation)Please write comments if you find any of the answers/explanations incorrect, or want to share more information about the topics discussed above.
+-------------------------------------------------------
+package main; 
+  
+class Base { 
+    public void Print() { 
+        System.out.println("Base"); 
+    }          
+} 
+class Derived extends Base {     
+    public void Print() { 
+        System.out.println("Derived"); 
+    } 
+} 
+class Main{ 
+    public static void DoPrint( Base o ) { 
+        o.Print();    
+    } 
+    public static void main(String[] args) { 
+        Base x = new Base(); 
+        Base y = new Derived(); 
+        Derived z = new Derived(); 
+		DoPrint(x); 
+        DoPrint(y); 
+        DoPrint(z); 
+    } 
+}
+ans)
+Base
+Derived
+Derived
+
+explanation)
+Predicting the first line of output is easy. We create an object of type Base and call DoPrint().
+DoPrint calls the print function and we get the first line.
+DoPrint(y) causes second line of output. Like C++, assigning a derived class reference to a base class reference is allowed in Java. Therefore, the expression Base y = new Derived() is a valid statement in Java. In DoPrint(), o starts referring to the same object as referred by y. 
+Also, unlike C++, functions are virtual by default in Java. So, when we call o.print(), the print() method of Derived class is called due to run time polymorphism present by default in Java.
+DoPrint(z) causes third line of output, we pass a reference of Derived type and the print() method of Derived class is called again. The point to note here is: unlike C++, object slicing doesn’t happen in Java. Because non-primitive types are always assigned by reference.
+-------------------------------------------------------
+package main; 
+  
+// filename Main.java  
+class Point { 
+    protected int x, y; 
+   
+    public Point(int _x, int _y) { 
+        x = _x; 
+        y = _y; 
+    } 
+} 
+  
+public class Main { 
+    public static void main(String args[]) { 
+      Point p = new Point(); 
+      System.out.println("x = " + p.x + ", y = " + p.y); 
+    }     
+} 
+
+ans)
+Compiler Error
+explanation)
+In the above program, there are no access permission issues because the Test and Main are in same package and protected members of a class can be accessed in other classes of same package. The problem with the code is: there is not default constructor in Point. Like C++, if we write our own parametrized constructor then Java compiler doesn’t create the default constructor. So there are following two changes to Point class that can fix the above program.
+1) Remove the parametrized constructor.
+2) Add a constructor without any parameter.
+Java doesn’t support default arguments, so that is not an option.
+-------------------------------------------------------
+class Test {     
+    int y = 2; 
+    int x  = y+2;   
+    public static void main(String[] args) {     
+         Test m = new Test(); 
+         System.out.println("x = " + m.x + ", y = " + m.y); 
+    } 
+} 
+
+ans)
+"x = 4, y = 2"
+explanation)
+Output of the above program is "x = 4, y = 2". y is initialized first, then x is initialized as y + 2. So the value of x becomes 4.
+-------------------------------------------------------
+public class Test  
+{     
+    int x = 2; 
+    Test(int i) { x = i; }  
+    public static void main(String[] args) {     
+         Test t = new Test(5); 
+         System.out.println("x = " + t.x); 
+    } 
+} 
+ans)
+"x = 5"
+Output of the above program is "x = 5". The initialization with class declaration in Java is like initialization using Initializer List in C++.
+So, in the above program, the value assigned inside the constructor overwrites the previous value of x which is 2, and x becomes 5
+
+-------------------------------------------------------
+class Base { 
+    protected void foo() {} 
+}  
+class Derived extends Base { 
+    void foo() {} 
+}  
+public class Main { 
+    public static void main(String args[]) { 
+        Derived d = new Derived(); 
+        d.foo(); 
+    } 
+} 
+ans) 
+Compiler Error
+explanation)
+foo() is protected in Base and default in Derived. Default access is more restrictive.
+ When a derived class overrides a base class function, more restrictive access can’t be given to the overridden function.
+ If we make foo() public, then the program works fine without any error. The behavior in C++ is different.
+ C++ allows to give more restrictive access to derived class methods.
